@@ -1,0 +1,86 @@
+#Práctica No.4
+#Descripción: Implementación del algoritmo LearnMatrix
+#Fecha de creación: 25 de noviembre del 2019
+#Autor: Joaquín Domínguez Moran
+#Fecha de actualización: 
+
+#Librerias 
+from scipy.spatial import distance
+import matplotlib.pyplot as plt
+import pandas as pd 
+import numpy as np
+
+def imprimir(clase,patron,m,p,n,i):
+	print("", end="\t")
+	for k in range(n):
+			print(patron[i][k],end="\t")
+			print("\n")
+
+	for x in range(p):
+			print(clase[i][x],end="\t")
+			for y in range(n):
+				if m[x][y]==1:
+					print("ε",end="\t")
+				elif m[x][y]==-1:
+					print("-ε",end="\t")
+				else:
+					print(m[x][y],end="\t")
+			print("\n")		
+	return
+
+
+def main():
+	#Inicializamos las clases con sus respectivos patrones
+	clases=pd.read_csv("clases.data")
+	patrones=pd.read_csv("patrones.data")
+	clase=[]
+	patron=[]
+
+	
+
+	for x in range(len(clases)):
+		row=[]
+		for y in range(len(clases.columns)):
+			row.append(clases.iloc[x,y])
+		clase.append(row)
+
+	for x in range(len(patrones)):
+		row=[]
+		for y in range(len(patrones.columns)):
+			row.append(patrones.iloc[x,y])
+		patron.append(row)
+
+	print(clase)
+	print(patron)
+	print("Bienvenido al programa que implementa la LearnMatrix")
+	p=len(clases)
+	n=len(patrones.columns)
+
+	print("El valor de p es:")
+	print(p)
+	print("El valor de n es:")
+	print(n)
+	
+	print("Fase de aprendizaje")
+	print("Paso1: Inicializar la LearnMatrix con los elementos mij=0")
+	m = np.zeros((p, n))
+	print(m)
+	print("Paso2: Iniciamos la fase de aprendizaje")
+
+	for i in range(p):
+		print("Iteracion: "+str(i)+" clase y:"+str(i)+"con patron x"+str(i))
+		for j in range(n):
+			if clase[i][i]==patron[i][j]:
+				m[i][j]=1
+			else:
+				m[i][j]=-1
+		imprimir(clase,patron,m,p,n,i)
+		
+	print("Fase de recuperación")
+
+		#for x in range(p):
+		#	for y in range(m):
+
+			
+	
+main()
